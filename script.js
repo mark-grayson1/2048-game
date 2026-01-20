@@ -7,6 +7,14 @@ const btnDown = document.querySelector("btn__down");
 const btnRight = document.querySelector("btn__right");
 const btnLeft = document.querySelector("btn__left");
 
+//create grid with all tiles initialized to 0 - no tiles
+const gridTracker = [
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
+	[0, 0, 0, 0],
+];
+
 function startGame() {
 	reset();
 }
