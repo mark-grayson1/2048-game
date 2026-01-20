@@ -1,0 +1,25 @@
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 800;
+}
+
+.grid {
+	display: inline-grid;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	grid-gap: 12px;
+	grid-template-rows: 100px 100px 100px 100px;
+	grid-template-columns: 100px 100px 100px 100px;
+	border: 10px solid lightgrey;
+}
+
+[class^="grid-tile"] {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	color: #fff;
+	border-radius: 5px;
+}
+
+/*# sourceMappingURL=grid.css.map */
