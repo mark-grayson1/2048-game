@@ -45,12 +45,114 @@ const reset = () => {
 	score.textContent = "Score: 0";
 	resetGrid();
 	console.log("grid reset", gridTracker);
-	AddTile(2);
-	UpdateDisplay();
+	addTile(2);
+	updateGridDisplay();
 };
 
+function mergeColumnNumbers(direction, column) {}
+
+function removeGaps(direction) {
+	let columnArray1 = [];
+	let columnArray2 = [];
+	let columnArray3 = [];
+	let columnArray4 = [];
+
+	let countOfNumbers = 0;
+	let currentNumber = 0;
+
+	//store numbers > 0 into  4 columns without gaps
+	for (let row = 0; row < gridTracker.length; row++) {
+		for (let column = 0; column < gridTracker.length; column++) {
+			currentNumber = gridTracker[row][column];
+			if (currentNumber !== 0) {
+				switch (column) {
+					case 0:
+						columnArray1.push(currentNumber);
+						break;
+					case 1:
+						columnArray2.push(currentNumber);
+						break;
+					case 2:
+						columnArray3.push(currentNumber);
+						break;
+					case 3:
+						columnArray4.push(currentNumber);
+						break;
+
+					default:
+						break;
+				}
+			}
+		}
+	}
+	resetGrid();
+	//copy column contents to grid starting at the bottom row to stack numbers
+	//store numbers > 0 into  4 columns without gaps
+	for (let column = 0; column < gridTracker.length; column++) {
+		let numberToPop = 0;
+		let row = 0;
+		let numOfElements = 0;
+		switch (column) {
+			case 0:
+				numOfElements = 0;
+				numberToPop = columnArray1.length;
+				for (let i = numberToPop; i > 0; i--) {
+					currentNumber = columnArray1.pop();
+					row = gridTracker.length - numOfElements - 1;
+					gridTracker[row][column] = currentNumber;
+					numOfElements++;
+				}
+				break;
+			case 1:
+				numOfElements = 0;
+				numberToPop = columnArray2.length;
+				for (let i = numberToPop; i > 0; i--) {
+					currentNumber = columnArray2.pop();
+					row = gridTracker.length - numOfElements - 1;
+					gridTracker[row][column] = currentNumber;
+					numOfElements++;
+				}
+				break;
+			case 2:
+				numOfElements = 0;
+				numberToPop = columnArray3.length;
+				for (let i = numberToPop; i > 0; i--) {
+					currentNumber = columnArray3.pop();
+					row = gridTracker.length - numOfElements - 1;
+					gridTracker[row][column] = currentNumber;
+					numOfElements++;
+				}
+				break;
+			case 3:
+				numOfElements = 0;
+				numberToPop = columnArray4.length;
+				for (let i = numberToPop; i > 0; i--) {
+					currentNumber = columnArray4.pop();
+					row = gridTracker.length - numOfElements - 1;
+					gridTracker[row][column] = currentNumber;
+					numOfElements++;
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
+}
+
 function moveTilesDown() {
-	alert("down button works");
+	//console.log("gridTracker before merge column numbers", gridTracker);
+
+	console.log("gridTracker before remove gaps", gridTracker);
+	removeGaps(2, 2);
+	console.log("gridTracker after remove gaps", gridTracker);
+	//Down - 2, column 2;
+	for (let column = 0; column < gridTracker.length; column++) {
+		console.log("moveTilesDown column is", column);
+		mergeColumnNumbers(2, column);
+	}
+	addTile(1);
+	updateGridDisplay();
 }
 
 function moveTilesUp() {
@@ -83,7 +185,6 @@ function fillRandomVacantPosition() {
 
 	// Randomly generate position between 1 and count
 	let randomPos = Math.ceil(Math.random() * emptySpaceCount);
-	console.log("randomPos", randomPos);
 
 	//Randomly generate 2 or 4
 	let evenNum = Math.floor(Math.random() * 2) + 1;
@@ -113,10 +214,8 @@ function resetGrid() {
 	}
 }
 
-function updateGridDisplay() {}
-
 // Adds a randomly generated tile of 2 or 4
-function AddTile(quantity) {
+function addTile(quantity) {
 	for (let index = 1; index <= quantity; index++) {
 		fillRandomVacantPosition();
 		updateGridDisplay();
@@ -124,7 +223,6 @@ function AddTile(quantity) {
 }
 
 function switchColor(tileNumber) {
-	console.log("in switchColor", tileNumber);
 	let color = "#36789d";
 
 	switch (tileNumber) {
@@ -142,7 +240,7 @@ function switchColor(tileNumber) {
 	return color;
 }
 
-function UpdateDisplay() {
+function updateGridDisplay() {
 	let tileNum = 0;
 
 	tileNum = gridTracker[0][0];
