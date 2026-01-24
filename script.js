@@ -209,9 +209,12 @@ function fillRandomVacantPosition() {
 	// Randomly generate position between 1 and count
 	let randomPos = Math.ceil(Math.random() * emptySpaceCount);
 
-	//Randomly generate 2 or 4
-	let evenNum = Math.floor(Math.random() * 2) + 1;
-	let tileNum = evenNum === 1 ? 2 : 4;
+	let betweenOneAndTen = Math.floor(Math.random() * 10) + 1;
+
+	let tileNum = 0;
+	//Randomly generate 2 or 4 - 90% 2, 10% 4
+	// If it is one then select 4 otherwise 2
+	tileNum = betweenOneAndTen === 1 ? 4 : 2;
 
 	let currentPos = 1;
 	//Iterate to randomly selected empty square
