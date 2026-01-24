@@ -49,8 +49,6 @@ const reset = () => {
 	updateGridDisplay();
 };
 
-function mergeColumnNumbers(direction, column) {}
-
 function removeGaps(direction) {
 	let columnArray1 = [];
 	let columnArray2 = [];
@@ -140,6 +138,31 @@ function removeGaps(direction) {
 	}
 }
 
+function mergeColumnNumbers(direction, column) {
+	let merge = 0;
+	let row = 0;
+	while (row < gridTracker.length - 1) {
+		merge = 0;
+		let firstNumber = gridTracker[row][column];
+		console.log("firstNumber", firstNumber);
+		let secondNumber = gridTracker[row + 1][column];
+		console.log("secondNumber", secondNumber);
+		if (firstNumber === secondNumber) {
+			merge++;
+			gridTracker[row][column] = 0;
+			gridTracker[row + 1][column] = firstNumber + secondNumber;
+		}
+
+		if (merge === 0) {
+			row++;
+		} else if (merge > 0) {
+			row += 2; // skip row avoid cumulative merge
+		}
+	}
+	//fill gaps in Columns from any merges
+	if (merge > 0) removeGaps(2);
+}
+
 function moveTilesDown() {
 	//console.log("gridTracker before merge column numbers", gridTracker);
 
@@ -205,7 +228,6 @@ function fillRandomVacantPosition() {
 	}
 }
 
-//CHECK IF SIMPLER WAY TO RESET THE GRID
 function resetGrid() {
 	for (let row = 0; row < gridTracker.length; row++) {
 		for (let column = 0; column < gridTracker.length; column++) {
