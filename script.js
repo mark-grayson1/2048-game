@@ -27,6 +27,12 @@ const btnDown = document.querySelector("btn__down");
 const btnRight = document.querySelector("btn__right");
 const btnLeft = document.querySelector("btn__left");
 
+// directions
+const upDirection = 1;
+const downDirection = 2;
+const leftDirection = 3;
+const rightDirection = 4;
+
 //create grid with all tiles initialized to 0 - no tiles
 var gridTracker = [
 	[0, 0, 0, 0],
@@ -45,7 +51,7 @@ const reset = () => {
 	score.textContent = "Score: 0";
 	resetGrid();
 	console.log("grid reset", gridTracker);
-	addTile(2);
+	addTiles(2);
 	updateGridDisplay();
 };
 
@@ -55,7 +61,6 @@ function removeGaps(direction) {
 	let columnArray3 = [];
 	let columnArray4 = [];
 
-	let countOfNumbers = 0;
 	let currentNumber = 0;
 
 	//store numbers > 0 into  4 columns without gaps
@@ -66,15 +71,19 @@ function removeGaps(direction) {
 				switch (column) {
 					case 0:
 						columnArray1.push(currentNumber);
+						console.log("columnArray1.push");
 						break;
 					case 1:
 						columnArray2.push(currentNumber);
+						console.log("columnArray2.push");
 						break;
 					case 2:
 						columnArray3.push(currentNumber);
+						console.log("columnArray3.push");
 						break;
 					case 3:
 						columnArray4.push(currentNumber);
+						console.log("columnArray4.push");
 						break;
 
 					default:
@@ -96,9 +105,10 @@ function removeGaps(direction) {
 				numberToPop = columnArray1.length;
 				for (let i = numberToPop; i > 0; i--) {
 					currentNumber = columnArray1.pop();
-					row = gridTracker.length - numOfElements - 1;
-					gridTracker[row][column] = currentNumber;
 					numOfElements++;
+					console.log("columnArray1 popped", numOfElements);
+					row = gridTracker.length - numOfElements;
+					gridTracker[row][column] = currentNumber;
 				}
 				break;
 			case 1:
@@ -106,9 +116,10 @@ function removeGaps(direction) {
 				numberToPop = columnArray2.length;
 				for (let i = numberToPop; i > 0; i--) {
 					currentNumber = columnArray2.pop();
-					row = gridTracker.length - numOfElements - 1;
-					gridTracker[row][column] = currentNumber;
 					numOfElements++;
+					console.log("columnArray2 popped", numOfElements);
+					row = gridTracker.length - numOfElements;
+					gridTracker[row][column] = currentNumber;
 				}
 				break;
 			case 2:
@@ -116,9 +127,10 @@ function removeGaps(direction) {
 				numberToPop = columnArray3.length;
 				for (let i = numberToPop; i > 0; i--) {
 					currentNumber = columnArray3.pop();
-					row = gridTracker.length - numOfElements - 1;
-					gridTracker[row][column] = currentNumber;
 					numOfElements++;
+					console.log("columnArray3 popped", numOfElements);
+					row = gridTracker.length - numOfElements;
+					gridTracker[row][column] = currentNumber;
 				}
 				break;
 			case 3:
@@ -126,9 +138,10 @@ function removeGaps(direction) {
 				numberToPop = columnArray4.length;
 				for (let i = numberToPop; i > 0; i--) {
 					currentNumber = columnArray4.pop();
-					row = gridTracker.length - numOfElements - 1;
-					gridTracker[row][column] = currentNumber;
 					numOfElements++;
+					console.log("columnArray4 popped", numOfElements);
+					row = gridTracker.length - numOfElements;
+					gridTracker[row][column] = currentNumber;
 				}
 				break;
 
@@ -139,42 +152,122 @@ function removeGaps(direction) {
 }
 
 function mergeColumnNumbers(direction, column) {
-	let merge = 0;
+	let mergeNumber = 0;
 	let row = 0;
 	while (row < gridTracker.length - 1) {
-		merge = 0;
+		mergeNumber = 0;
 		let firstNumber = gridTracker[row][column];
-		console.log("firstNumber", firstNumber);
 		let secondNumber = gridTracker[row + 1][column];
-		console.log("secondNumber", secondNumber);
+
 		if (firstNumber === secondNumber) {
-			merge++;
+			mergeNumber++;
 			gridTracker[row][column] = 0;
 			gridTracker[row + 1][column] = firstNumber + secondNumber;
 		}
 
-		if (merge === 0) {
+		if (mergeNumber === 0) {
 			row++;
-		} else if (merge > 0) {
+		} else if (mergeNumber > 0) {
 			row += 2; // skip row avoid cumulative merge
 		}
 	}
 	//fill gaps in Columns from any merges
-	if (merge > 0) removeGaps(2);
+	if (mergeNumber > 0) {
+		console.log("removeGaps called in mergeColumnNumbers");
+		removeGaps(downDirection);
+	}
+
+	return mergeNumber;
+}
+
+function hasGaps() {
+	let column1HasNumber = false;
+	let column2HasNumber = false;
+	let column3HasNumber = false;
+	let column4HasNumber = false;
+	let gaps = false;
+
+	for (let row = 0; row < gridTracker.length; row++) {
+		for (let column = 0; column < gridTracker.length; column++) {
+			switch (column) {
+				case 0:
+					if (gridTracker[row][column] > 0) {
+						column1HasNumber = true;
+					} else {
+						if (column1HasNumber) gaps = true;
+					}
+					break;
+				case 1:
+					if (gridTracker[row][column] > 0) {
+						column2HasNumber = true;
+					} else {
+						if (column2HasNumber) gaps = true;
+					}
+					break;
+				case 2:
+					if (gridTracker[row][column] > 0) {
+						column3HasNumber = true;
+					} else {
+						if (column3HasNumber) gaps = true;
+					}
+					break;
+				case 3:
+					if (gridTracker[row][column] > 0) {
+						column4HasNumber = true;
+					} else {
+						if (column4HasNumber) gaps = true;
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	return gaps;
+}
+
+// merge required if 2 numbers in same column - any gaps already removed
+function mergeRequired() {
+	let firstNumber = -1;
+	let secondNumber = -1;
+
+	for (let row = 0; row < gridTracker.length; row++) {
+		for (let column = 0; column < gridTracker.length; column++) {
+			firstNumber = gridTracker[row][column];
+			if (row < gridTracker.length - 1 && firstNumber > 0) {
+				secondNumber = gridTracker[row + 1][column];
+				if (firstNumber === secondNumber) return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 function moveTilesDown() {
 	//console.log("gridTracker before merge column numbers", gridTracker);
 
-	console.log("gridTracker before remove gaps", gridTracker);
-	removeGaps(2, 2);
-	console.log("gridTracker after remove gaps", gridTracker);
-	//Down - 2, column 2;
-	for (let column = 0; column < gridTracker.length; column++) {
-		console.log("moveTilesDown column is", column);
-		mergeColumnNumbers(2, column);
+	let tileMoved = false;
+	let numbersMerged = false;
+
+	if (hasGaps()) {
+		tileMoved = true;
+		console.log("hasGaps is true");
+		removeGaps(downDirection, 2);
+		console.log("removeGaps called in moveTilesDown");
 	}
-	addTile(1);
+
+	if (mergeRequired()) {
+		for (let column = 0; column < gridTracker.length; column++) {
+			mergeColumnNumbers(downDirection, column) > 0;
+			numbersMerged = true;
+		}
+		console.log("numbersMerged is", numbersMerged);
+	}
+
+	//only add a tile if existing tiles have moved
+	if (tileMoved || numbersMerged) addTiles(1);
+
 	updateGridDisplay();
 }
 
@@ -240,7 +333,7 @@ function resetGrid() {
 }
 
 // Adds a randomly generated tile of 2 or 4
-function addTile(quantity) {
+function addTiles(quantity) {
 	for (let index = 1; index <= quantity; index++) {
 		fillRandomVacantPosition();
 		updateGridDisplay();
