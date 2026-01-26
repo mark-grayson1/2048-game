@@ -879,19 +879,19 @@ function moveTiles(direction) {
 }
 
 function moveTilesDown() {
-	moveTiles(downDirection);
+	if (playing) moveTiles(downDirection);
 }
 
 function moveTilesUp() {
-	moveTiles(upDirection);
+	if (playing) moveTiles(upDirection);
 }
 
 function moveTilesRight() {
-	moveTiles(rightDirection);
+	if (playing) moveTiles(rightDirection);
 }
 
 function moveTilesLeft() {
-	moveTiles(leftDirection);
+	if (playing) moveTiles(leftDirection);
 }
 
 // Returns -1 if grid full else returns vacant
