@@ -62,7 +62,7 @@ const updateScore = (points) => {
 	console.log("Score: ", score);
 };
 
-function removeColumnGaps(direction) {
+const removeColumnGaps = (direction) => {
 	let columnArray1 = [];
 	let columnArray2 = [];
 	let columnArray3 = [];
@@ -247,9 +247,9 @@ function removeColumnGaps(direction) {
 			}
 		}
 	}
-}
+};
 
-function removeRowGaps(direction) {
+const removeRowGaps = (direction) => {
 	let rowArray1 = [];
 	let rowArray2 = [];
 	let rowArray3 = [];
@@ -434,9 +434,9 @@ function removeRowGaps(direction) {
 			}
 		}
 	}
-}
+};
 
-function removeGaps(direction) {
+const removeGaps = (direction) => {
 	switch (direction) {
 		case downDirection:
 			gaps = removeColumnGaps(downDirection);
@@ -457,9 +457,9 @@ function removeGaps(direction) {
 		default:
 			break;
 	}
-}
+};
 
-function mergeColumnNumbers(direction, column) {
+const mergeColumnNumbers = (direction, column) => {
 	let mergeNumber = 0;
 	let row = 0;
 	if (direction === downDirection) {
@@ -509,9 +509,9 @@ function mergeColumnNumbers(direction, column) {
 	}
 
 	return mergeNumber;
-}
+};
 
-function mergeRowNumbers(direction, row) {
+const mergeRowNumbers = (direction, row) => {
 	let mergeNumber = 0;
 	let column = 0;
 	if (direction === rightDirection) {
@@ -562,7 +562,7 @@ function mergeRowNumbers(direction, row) {
 	}
 
 	return mergeNumber;
-}
+};
 
 function hasGapsInColumn(direction) {
 	let column1HasNumber = false;
