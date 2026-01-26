@@ -26,6 +26,7 @@ const btnUp = document.querySelector("btn__up");
 const btnDown = document.querySelector("btn__down");
 const btnRight = document.querySelector("btn__right");
 const btnLeft = document.querySelector("btn__left");
+const scoreDisplay = document.querySelector(".score-display");
 
 // directions
 const upDirection = 1;
@@ -48,11 +49,17 @@ function startGame() {
 const reset = () => {
 	score = 0;
 	playing = true;
-	score.textContent = "Score: 0";
+	scoreDisplay.textContent = "Score: 0";
 	resetGrid();
 	console.log("grid reset", gridTracker);
 	addTiles(2);
 	updateGridDisplay();
+};
+
+const updateScore = (points) => {
+	score = score + points;
+	scoreDisplay.textContent = `Score: ${score}`;
+	console.log("Score: ", score);
 };
 
 function removeColumnGaps(direction) {
@@ -461,10 +468,11 @@ function mergeColumnNumbers(direction, column) {
 			let firstNumber = gridTracker[row][column];
 			let secondNumber = gridTracker[row + 1][column];
 
-			if (firstNumber === secondNumber) {
+			if (firstNumber === secondNumber && firstNumber !== 0) {
 				mergeNumber++;
 				gridTracker[row][column] = 0;
 				gridTracker[row + 1][column] = firstNumber + secondNumber;
+				updateScore(firstNumber + secondNumber);
 			}
 
 			if (mergeNumber === 0) {
@@ -480,10 +488,11 @@ function mergeColumnNumbers(direction, column) {
 			let firstNumber = gridTracker[row][column];
 			let secondNumber = gridTracker[row - 1][column];
 
-			if (firstNumber === secondNumber) {
+			if (firstNumber === secondNumber && firstNumber !== 0) {
 				mergeNumber++;
 				gridTracker[row][column] = 0;
 				gridTracker[row - 1][column] = firstNumber + secondNumber;
+				updateScore(firstNumber + secondNumber);
 			}
 
 			if (mergeNumber === 0) {
@@ -511,10 +520,11 @@ function mergeRowNumbers(direction, row) {
 			let firstNumber = gridTracker[row][column];
 			let secondNumber = gridTracker[row][column + 1];
 
-			if (firstNumber === secondNumber) {
+			if (firstNumber === secondNumber && firstNumber !== 0) {
 				mergeNumber++;
 				gridTracker[row][column] = 0;
 				gridTracker[row][column + 1] = firstNumber + secondNumber;
+				updateScore(firstNumber + secondNumber);
 			}
 
 			if (mergeNumber === 0) {
@@ -530,10 +540,11 @@ function mergeRowNumbers(direction, row) {
 			let firstNumber = gridTracker[row][column];
 			let secondNumber = gridTracker[row][column - 1];
 
-			if (firstNumber === secondNumber) {
+			if (firstNumber === secondNumber && firstNumber !== 0) {
 				mergeNumber++;
 				gridTracker[row][column] = 0;
 				gridTracker[row][column - 1] = firstNumber + secondNumber;
+				updateScore(firstNumber + secondNumber);
 			}
 
 			if (mergeNumber === 0) {
