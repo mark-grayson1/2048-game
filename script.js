@@ -953,17 +953,62 @@ function addTiles(quantity) {
 }
 
 function switchColor(tileNumber) {
-	let color = "#36789d";
+	let color = "#beige";
 
 	switch (tileNumber) {
 		case 2:
 			color = "#458b8b";
 			break;
 		case 4:
-			color = "grey";
+			color = "gray";
+			break;
+		case 8:
+			color = "orange";
+			break;
+		case 16:
+			color = "indigo";
+			break;
+		case 32:
+			color = "red";
+			break;
+		case 64:
+			color = "blue";
+			break;
+		case 128:
+			color = "green";
+			break;
+		case 256:
+			color = "pink";
+			break;
+		case 512:
+			color = "violet";
+			break;
+		case 1024:
+			color = "silver";
+			break;
+		case 2048:
+			color = "maroon";
+			break;
+		case 4096:
+			color = "fuchsia";
+			break;
+		case 8192:
+			color = "olive";
+			break;
+		case 16384:
+			color = "navy";
+			break;
+		case 32768:
+			color = "teal";
+			break;
+		case 65536:
+			color = "aliceblue";
+			break;
+		case 131072:
+			color = "antiquewhite";
 			break;
 		default:
-			color = "#36789d";
+			color = "beige";
 			break;
 	}
 
