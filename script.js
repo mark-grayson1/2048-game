@@ -28,6 +28,8 @@ const btnRight = document.querySelector("btn__right");
 const btnLeft = document.querySelector("btn__left");
 const scoreDisplay = document.querySelector(".score-display");
 
+const startInstructions = document.querySelector(".instructions");
+
 // directions
 const upDirection = 1;
 const downDirection = 2;
@@ -906,21 +908,46 @@ function moveTiles(direction) {
 	updateGridDisplay();
 }
 
-function moveTilesDown() {
+const moveTilesDown = () => {
 	if (playing) moveTiles(downDirection);
-}
+};
 
-function moveTilesUp() {
+const moveTilesUp = () => {
 	if (playing) moveTiles(upDirection);
-}
+};
 
-function moveTilesRight() {
+const moveTilesRight = () => {
 	if (playing) moveTiles(rightDirection);
-}
+};
 
-function moveTilesLeft() {
+const moveTilesLeft = () => {
 	if (playing) moveTiles(leftDirection);
-}
+};
+
+// EventListeners for arrow keys
+window.addEventListener("keyup", (event) => {
+	switch (event.key) {
+		case "ArrowLeft":
+			if (playing) moveTiles(leftDirection);
+			break;
+		case "ArrowUp":
+			if (playing) moveTiles(upDirection);
+			break;
+		case "ArrowRight":
+			if (playing) moveTiles(rightDirection);
+			break;
+		case "ArrowDown":
+			if (playing) moveTiles(downDirection);
+			break;
+		case " ":
+			startGame();
+			startInstructions.textContent = "";
+			break;
+
+		default:
+			break;
+	}
+});
 
 // Returns -1 if grid full else returns vacant
 function fillRandomVacantPosition() {
@@ -980,7 +1007,7 @@ function addTiles(quantity) {
 	}
 }
 
-function switchColor(tileNumber) {
+const switchColor = (tileNumber) => {
 	let color = "#beige";
 
 	switch (tileNumber) {
@@ -1041,9 +1068,9 @@ function switchColor(tileNumber) {
 	}
 
 	return color;
-}
+};
 
-function updateGridDisplay() {
+const updateGridDisplay = () => {
 	let tileNum = 0;
 
 	tileNum = gridTracker[0][0];
@@ -1193,4 +1220,4 @@ function updateGridDisplay() {
 			tile16.textContent = "";
 		}
 	}
-}
+};
