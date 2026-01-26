@@ -42,9 +42,9 @@ var gridTracker = [
 	[0, 0, 0, 0],
 ];
 
-function startGame() {
+const startGame = () => {
 	reset();
-}
+};
 
 const reset = () => {
 	score = 0;
@@ -840,6 +840,28 @@ function rowMergeRequired(direction) {
 	return false;
 }
 
+// check if there are still gaps
+const isGridFull = () => {
+	for (let row = 0; row < gridTracker.length; row++) {
+		for (let column = 0; column < gridTracker.length; column++) {
+			if (gridTracker[row][column] === 0) {
+				return false;
+			}
+		}
+	}
+	return true;
+};
+
+const noAdjacentNumbers = () => {
+	return (
+		!rowMergeRequired(rightDirection) && !columnMergeRequired(downDirection)
+	);
+};
+
+const isGameOver = () => {
+	return isGridFull() && noAdjacentNumbers();
+};
+
 function moveTiles(direction) {
 	//console.log("gridTracker before merge column numbers", gridTracker);
 
@@ -873,7 +895,13 @@ function moveTiles(direction) {
 	}
 
 	//only add a tile if existing tiles have moved
-	if (tileMoved || numbersMerged) addTiles(1);
+	if (tileMoved || numbersMerged) {
+		addTiles(1);
+		updateGridDisplay();
+		if (isGameOver()) {
+			alert("Game over!");
+		}
+	}
 
 	updateGridDisplay();
 }
