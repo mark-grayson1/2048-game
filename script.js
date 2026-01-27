@@ -567,7 +567,7 @@ const mergeRowNumbers = (direction, row) => {
 	return mergeNumber;
 };
 
-function hasGapsInColumn(direction) {
+const hasGapsInColumn = (direction) => {
 	let column1HasNumber = false;
 	let column2HasNumber = false;
 	let column3HasNumber = false;
@@ -673,9 +673,9 @@ function hasGapsInColumn(direction) {
 	}
 
 	return gaps;
-}
+};
 
-function hasGapsInRow(direction) {
+const hasGapsInRow = (direction) => {
 	let row1HasNumber = false;
 	let row2HasNumber = false;
 	let row3HasNumber = false;
@@ -759,9 +759,9 @@ function hasGapsInRow(direction) {
 	}
 
 	return gaps;
-}
+};
 
-function hasGaps(direction) {
+const hasGaps = (direction) => {
 	let gaps = false;
 
 	switch (direction) {
@@ -782,10 +782,10 @@ function hasGaps(direction) {
 			break;
 	}
 	return gaps;
-}
+};
 
 // merge required if 2 consecutive numbers in same column - any gaps already removed
-function columnMergeRequired(direction) {
+const columnMergeRequired = (direction) => {
 	let firstNumber = -1;
 	let secondNumber = -1;
 
@@ -812,9 +812,9 @@ function columnMergeRequired(direction) {
 	}
 
 	return false;
-}
+};
 
-function rowMergeRequired(direction) {
+const rowMergeRequired = (direction) => {
 	let firstNumber = -1;
 	let secondNumber = -1;
 
@@ -841,7 +841,7 @@ function rowMergeRequired(direction) {
 	}
 
 	return false;
-}
+};
 
 // check if there are still gaps
 const isGridFull = () => {
@@ -865,7 +865,7 @@ const isGameOver = () => {
 	return isGridFull() && noAdjacentNumbers();
 };
 
-function moveTiles(direction) {
+const moveTiles = (direction) => {
 	//console.log("gridTracker before merge column numbers", gridTracker);
 
 	let tileMoved = false;
@@ -907,7 +907,7 @@ function moveTiles(direction) {
 	}
 
 	updateGridDisplay();
-}
+};
 
 const moveTilesDown = () => {
 	if (playing) moveTiles(downDirection);
@@ -951,7 +951,7 @@ window.addEventListener("keyup", (event) => {
 });
 
 // Returns -1 if grid full else returns vacant
-function fillRandomVacantPosition() {
+const fillRandomVacantPosition = () => {
 	let emptySpaceCount = 0;
 	let result = -1; //Grid full
 
@@ -990,23 +990,23 @@ function fillRandomVacantPosition() {
 			}
 		}
 	}
-}
+};
 
-function resetGrid() {
+const resetGrid = () => {
 	for (let row = 0; row < gridTracker.length; row++) {
 		for (let column = 0; column < gridTracker.length; column++) {
 			gridTracker[row][column] = 0;
 		}
 	}
-}
+};
 
 // Adds a randomly generated tile of 2 or 4
-function addTiles(quantity) {
+const addTiles = (quantity) => {
 	for (let index = 1; index <= quantity; index++) {
 		fillRandomVacantPosition();
 		updateGridDisplay();
 	}
-}
+};
 
 const switchColor = (tileNumber) => {
 	let color = "#beige";
