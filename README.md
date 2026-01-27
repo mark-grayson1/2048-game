@@ -1,6 +1,7 @@
 # 2048 clone
 
-This is a version of the highly addictive 2048 game. Move numbered tiles up down, left and right. Your goal is to combine them to try and reach 2048.
+This is a version of the highly addictive 2048 game. The original game cam be found in a repository here - https://github.com/gabrielecirulli/2048. Move numbered tiles up down, left and right. Your goal is to combine them to try and reach 2048.
+
 
 ### Features
 
@@ -8,7 +9,9 @@ This is a version of the highly addictive 2048 game. Move numbered tiles up down
 - Tile movement
 - Directional buttons to support tile movement
 - Game score
+- Keyboard support
 - Mobile Compatible
+
 
 ### Technologies being used
 
@@ -17,9 +20,11 @@ This is a version of the highly addictive 2048 game. Move numbered tiles up down
 - SASS
 - Javascript
 
+
 ### Live demo
 
-WIP - nothing to see yet!
+https://mark-grayson1.github.io/2048-game/
+
 
 ### Design - basic game logic
 
@@ -98,3 +103,59 @@ WIP - nothing to see yet!
                 3.5.2.4 If grid tracker object changed, refresh grid display to the left.
     	    3.5.3 If grid full and no moves available then
     		    3.5.3.1 Display the Game over text.
+
+                    
+### Task list
+Using HTML, SCSS & JS
+
+What code do I need?
+
+# HTML
+
+-   [x] We need containers for the tiles
+-   [x] We need a button to start the game
+-   [x] We need a buttons for movement (up, down, left right)
+-   [x] We need a label and value for score 
+-   [x] We need a wrapper for all but the display to act as our grid container.
+
+
+# SCSS
+
+-   [x] Using a grid
+    -   [x] 4 columns
+    -   [x] 4 rows
+    -   [x] adding a gap
+-   [x] background grey
+-   [x] tile containers - background dark blue
+
+# JS
+
+-   [x] Create grid tracker object
+-   [x] add tile functionality - specify number
+-   [x] Start / Reinitialise game
+	- [x] add 2 tiles - 2 or 4 to random grid position
+	- [x] Set score to 0
+	- [x] reset grid tracker object
+-   [x] Update grid tracker object
+	- [x] rows
+		- [x] merge tile numbers
+		- [x] remove tile gaps
+	- [x] columns 
+		- [x] merge tile numbers
+		- [x] remove tile gaps
+	- [x] reinitialise
+-   [x] Grid display changes
+	- [x] transition left
+	- [x] transition right
+	- [x] transition up
+	- [x] transition down
+-   [x] Calculate score
+-   [x] Check whether the game has ended
+	- [x] is grid full
+	- [x] can no more tiles be merged
+		- [x] display Game Over message 
+-   [x] Update to support additional screen resolutions
+	- [x] make display usable on a mobile phone resolution
+-   [x] Support keyboard functionality
+-   [x] Tile colours for all tiles defined -  for 17 levels
+
