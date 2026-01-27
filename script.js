@@ -45,6 +45,7 @@ var gridTracker = [
 ];
 
 const startGame = () => {
+	startInstructions.textContent = "";
 	reset();
 };
 
@@ -899,9 +900,9 @@ function moveTiles(direction) {
 	//only add a tile if existing tiles have moved
 	if (tileMoved || numbersMerged) {
 		addTiles(1);
-		updateGridDisplay();
 		if (isGameOver()) {
 			alert("Game over!");
+			startInstructions.textContent = "Press Space bar or start button.";
 		}
 	}
 
